@@ -1,0 +1,10 @@
+server:
+  port: 8020
+
+  #Local MongoDB config
+  data:
+    mongodb:
+      #uri: mongodb://localhost:27017/lowes
+      database: lowes
+      port: 27017
+      host: localhost
