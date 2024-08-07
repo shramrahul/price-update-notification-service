@@ -5,10 +5,3 @@ spring:
   kafka:
     bootstrap-servers: kafka:9092
 
-  #Local MongoDB config
-  data:
-    mongodb:
-      #uri: mongodb://localhost:27017/lowes
-      database: lowes
-      port: 27017
-      host: localhost

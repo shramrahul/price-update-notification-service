@@ -1,11 +1,9 @@
 package com.shreeram.example.consumer;
 
-import com.shreeram.example.model.KafkaMessage;
-import com.shreeram.example.service.ProductDetailsService;
-import com.shreeram.example.utils.MessageUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaHandler;
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
 
@@ -14,17 +12,17 @@ import org.springframework.stereotype.Service;
 @KafkaListener(topics = "product-price-update", groupId = "product-price-update-group")
 public class KafkaConsumer {
 
-    private final ProductDetailsService productDetailsService;
-    public KafkaConsumer(ProductDetailsService productDetailsService) {
-        this.productDetailsService = productDetailsService;
+    private final SimpMessagingTemplate messagingTemplate;
+    public KafkaConsumer(SimpMessagingTemplate messagingTemplate) {
+        this.messagingTemplate = messagingTemplate;
     }
 
     @KafkaHandler
   //  @SendTo("product-price-update-success")
-    public KafkaMessage listen(String message) {
-        KafkaMessage kafkaMessage = MessageUtils.parseMessage(message);
-        productDetailsService.updateProductPrice(kafkaMessage);
-        return kafkaMessage;
+    public String listen(String message) throws Exception {
+        System.out.println(message);
+        messagingTemplate.convertAndSend("/topic/messages", message);
+        return message;
     }
 
 
