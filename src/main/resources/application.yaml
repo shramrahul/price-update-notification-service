@@ -1,6 +1,10 @@
 server:
   port: 8020
 
+spring:
+  kafka:
+    bootstrap-servers: kafka:9092
+
   #Local MongoDB config
   data:
     mongodb:
